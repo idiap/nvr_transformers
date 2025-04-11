@@ -1,0 +1,56 @@
+#
+# SPDX-FileCopyrightText: Copyright © 2024 Idiap Research Institute <contact@idiap.ch>
+#
+# SPDX-FileContributor: Fabio Fehr <fabio.fehr@idiap.ch>
+#
+# SPDX-License-Identifier: GPL-3.0-only
+#
+
+experiment_name: sweep_MODEL_xsum_DATA_curation
+project_name: project_name
+entity: xxx # fill in your own
+output_dir: outputs
+model_path: null
+# DATA - gaussian, xsum, cnn_dailymail... etc
+data: curation
+emp_data: xsum
+emp_perc: 1.0
+num_workers: 4
+val_perc: 1
+seed: 42
+fast_dev_run: null
+quantisation: null
+test: null
+count: 1
+# MODEL
+model: NVIBBART-LARGE-XSUM
+batch_size: 4
+kld_lambda: 1
+klg_lambda: 1
+mu_tau: 1
+# WandB Sweep
+method: random # bayes, grid, random
+metric:
+  name: rougeL_val
+  goal: maximize
+parameters:
+  # ALPHA
+  alpha_tau_e:
+    min: -10.0
+    max: -3.0
+  alpha_tau_c:
+    min: -10.0
+    max: -3.0
+  alpha_tau_d:
+    min: 0.5
+    max: 3.0
+  # SIGMA
+  stdev_tau_e:
+    min: 0.0
+    max: 0.5
+  stdev_tau_c:
+    min: 0.0
+    max: 0.5
+  stdev_tau_d:
+    min: 0.0
+    max: 0.5
